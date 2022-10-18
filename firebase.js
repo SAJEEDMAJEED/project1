@@ -1,69 +1,10 @@
-const db = require('./config')
+var admin = require("firebase-admin");
 
-const ref = db.ref('school/details');
-const usersRef = ref.child('students');
-const app = require('./service')
+var serviceAccount = require("./project1-382f0-firebase-adminsdk-86u87-f28182538e.json");
 
-
-
-// create
-app.get('/',(req,res)=>{
-  res.status(200).send('connect')
-  usersRef.set({
-    hari: {
-      date_of_birth: 'June 23, 1912',
-      full_name: 'hari krishnan'
-    },
-    febin: {
-      date_of_birth: 'December 9, 1906',
-      full_name: 'febin mathew'
-    }
-  });
-  
-})
-
-//update
-
-app.post('/student/:age', (req, res) => {
-  try {
-      console.log('headers', req.headers);
-      console.log('body', req.body);
-      console.log('params', req.params);
-      console.log('query', req.query);
-
-      usersRef.update({
-        'hari/age': req.params,
-        'febin/age': req.params
-      });
-  } catch (error) {
-      console.log('error: ', error);
-  }
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://project1-382f0-default-rtdb.asia-southeast1.firebasedatabase.app"
 });
 
-//push
-app.post('/student/gender', (req, res) => {
-  try {
-         
-  //push
-    usersRef.push({
-      gender: 'male',
-      
-    });
-  } catch (error) {
-      console.log('error: ', error);
-  }
-});
-
-//delete
-
-app.post('/remove', (req, res) => {
-  try {
-    ref.remove();
-    
-  } catch (error) {
-      console.log('error: ', error);
-  }
-});
-
-
-
+module.exports = admin;
