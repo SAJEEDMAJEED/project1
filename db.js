@@ -22,7 +22,16 @@ const create = async (path,data) =>  {
     }
 }
 
+//delete
+const deletes = async (path) => {
+    try{
+          const ref = db.ref(path);
+          let response = await ref.remove();
+          return response;
+        } catch(error) {
+        console.log('error:',error);
+    }
+}
 
-
-module.exports = {read,create};
+module.exports = {read,create,deletes};
 
