@@ -12,15 +12,27 @@ const read = async (path) => {
     }
 };
 
-//create or update
+
+//create or update   
 const create = async (path,data) =>  {
     try{
-          const ref = db.ref(path);
+          const ref = db.ref(path); 
           return await ref.update(data);
     } catch(error) {
         console.log('error: ', error);
     }
 }
+
+//put
+const pushData = async (path,data) =>  {
+    try{
+          const ref = db.ref(path); 
+          return await ref.push(data);
+    } catch(error) {
+        console.log('error: ', error);
+    }
+}
+
 
 //delete
 const deletes = async (path) => {
@@ -33,5 +45,5 @@ const deletes = async (path) => {
     }
 }
 
-module.exports = {read,create,deletes};
+  module.exports = {read,create,deletes,pushData};
 
