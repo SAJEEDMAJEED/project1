@@ -11,7 +11,7 @@ const getProductById = async (req,res) => {
     }
 }
 
-const getProduct =  async (req,res) => {
+const getProducts =  async (req,res) => {
     try{
        const product = await db.read('product');
        res.json(product);
@@ -25,13 +25,10 @@ const getProduct =  async (req,res) => {
 //create product
 const createProduct = async (req,res) => {
     try{
-        const id = req.params.id;  
-        const product = {
-            name: 'charger',
-            price: 200,
-        }  
-       
-       await db.create('product/'+id,product);
+        console.log(req.body);
+        res.json(req.body);
+        await db.create('product',req.body);
+
     } catch (error) {
         console.log('error: ', error)
     }
@@ -41,12 +38,9 @@ const createProduct = async (req,res) => {
 const pushProduct = async (req,res) => {
     try{
      
-        const product = {
-            name: 'USB',
-            price: 200,
-        }  
-        
-       await db.pushData('product/',product);
+       console.log(req.body); 
+       res.json(req.body);
+       await db.pushData('product',req.body);
     } catch (error) {
         console.log('error: ', error)
     }
@@ -64,6 +58,14 @@ const deleteProduct = async (req,res) => {
     }
 }
 
+const all = (req, res) => {
+        try {
+            res.status(404).send('the page you are looking is not found');
+        } catch (error) {
+            console.log('error: ', error);
+        }
+    };
+    
 
 
-module.exports = {getProductById,getProduct,deleteProduct,pushProduct,createProduct}
+module.exports = {getProductById,getProducts,deleteProduct,pushProduct,createProduct,all}

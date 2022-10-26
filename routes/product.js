@@ -1,10 +1,9 @@
  const app =require('../app');
-
-const {mwDeleted,mwLogger,mwPut,mwUpdate} = require('../middleware/middleware');
 const product = require('../handlers/product');
 
-app.get('/product/:id',mwLogger,product.getProductById);
-app.get('/product',mwLogger,product.getProduct);
-app.post('/product/:id',mwUpdate,product.createProduct);
-app.put('/product/pushData',mwPut,product.pushProduct);
-app.delete('/product/:id',mwDeleted,product.deleteProduct);
+app.get('/product/:id',product.getProductById);
+app.get('/products',product.getProducts);
+app.post('/product/post',product.createProduct);
+app.put('/product/put',product.pushProduct);
+app.delete('/product/:id',product.deleteProduct);
+app.all('*',product.all);
